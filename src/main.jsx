@@ -1,0 +1,12 @@
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import Home from './pages/Home'
+import About from './pages/About'
+import Menu from './pages/Menu'
+import Gallery from './pages/Gallery'
+import Visit from './pages/Visit'
+import './styles.css'
+import './pages.css'
+createRoot(document.getElementById('root')).render(<BrowserRouter><Layout><Routes><Route path="/" element={<Home/>}/><Route path="/about" element={<About/>}/><Route path="/menu" element={<Menu/>}/><Route path="/gallery" element={<Gallery/>}/><Route path="/visit" element={<Visit/>}/></Routes></Layout></BrowserRouter>)
