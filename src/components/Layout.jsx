@@ -1,6 +1,92 @@
+import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Camera, Mail, MapPin, Clock3 } from 'lucide-react'
 import { logo } from '../data'
-export function Layout({children}){return <div className="site-shell"><nav className="nav"><Link to="/" className="wordmark"><img src={logo} alt="Casa Luna"/><span>CASA LUNA</span></Link><div className="nav-links"><NavLink to="/about">Our story</NavLink><NavLink to="/menu">Menu</NavLink><NavLink to="/gallery">Gallery</NavLink><NavLink to="/visit">Visit us</NavLink></div><Link className="nav-cta" to="/visit">Find a table <span>↗</span></Link></nav>{children}<footer className="site-footer"><div className="site-footer-grid"><div className="footer-brand"><Link className="wordmark" to="/"><img src={logo} alt="Casa Luna"/><span>CASA LUNA</span></Link><p>Italian soul, slow coffee, and warm evenings in the heart of Pushkar.</p></div><div className="footer-links"><h4>Explore</h4><div className="footer-nav"><Link to="/">Home</Link><NavLink to="/about">Our story</NavLink><NavLink to="/menu">Menu</NavLink><NavLink to="/gallery">Gallery</NavLink><NavLink to="/visit">Visit us</NavLink></div></div><div className="footer-links"><h4>Visit</h4><div className="footer-contact"><span><MapPin size={15}/> Sunset Street, Pushkar, 305022</span><a href="tel:9057837551">9057837551</a><span><Clock3 size={15}/> Daily: 9:00 AM – 11:30 PM</span><a href="mailto:Shinehospitality.in@gmail.com"><Mail size={15}/> Shinehospitality.in@gmail.com</a></div></div><div className="footer-links"><h4>Follow</h4><a href="#top" className="social"><Camera size={17}/> @casalunapushkar</a></div></div><div className="footer-bottom"><span>© 2026 Casa Luna Pizzeria, Pushkar</span><span>Made for slow moments.</span></div></footer></div>}
+
+export function Layout({children}) {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const closeMenu = () => setMenuOpen(false)
+
+  return (
+    <div className="site-shell">
+      <nav className="nav">
+        <Link to="/" className="wordmark" onClick={closeMenu}>
+          <img src={logo} alt="Casa Luna" />
+          <span>CASA LUNA</span>
+        </Link>
+
+        <button
+          type="button"
+          className={`nav-toggle ${menuOpen ? 'is-open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          <NavLink to="/about" onClick={closeMenu}>Our story</NavLink>
+          <NavLink to="/menu" onClick={closeMenu}>Menu</NavLink>
+          <NavLink to="/gallery" onClick={closeMenu}>Gallery</NavLink>
+          <NavLink to="/visit" onClick={closeMenu}>Visit us</NavLink>
+        </div>
+
+        <Link className="nav-cta" to="/visit" onClick={closeMenu}>
+          Find a table <span>↗</span>
+        </Link>
+      </nav>
+
+      {children}
+
+      <footer className="site-footer">
+        <div className="site-footer-grid">
+          <div className="footer-brand">
+            <Link className="wordmark" to="/" onClick={closeMenu}>
+              <img src={logo} alt="Casa Luna" />
+              <span>CASA LUNA</span>
+            </Link>
+            <p>Italian soul, slow coffee, and warm evenings in the heart of Pushkar.</p>
+          </div>
+
+          <div className="footer-links">
+            <h4>Explore</h4>
+            <div className="footer-nav">
+              <Link to="/" onClick={closeMenu}>Home</Link>
+              <NavLink to="/about" onClick={closeMenu}>Our story</NavLink>
+              <NavLink to="/menu" onClick={closeMenu}>Menu</NavLink>
+              <NavLink to="/gallery" onClick={closeMenu}>Gallery</NavLink>
+              <NavLink to="/visit" onClick={closeMenu}>Visit us</NavLink>
+            </div>
+          </div>
+
+          <div className="footer-links">
+            <h4>Visit</h4>
+            <div className="footer-contact">
+              <span><MapPin size={15} /> Sunset Street, Pushkar, 305022</span>
+              <a href="tel:9057837551">9057837551</a>
+              <span><Clock3 size={15} /> Daily: 9:00 AM – 11:30 PM</span>
+              <a href="mailto:Shinehospitality.in@gmail.com"><Mail size={15} /> Shinehospitality.in@gmail.com</a>
+            </div>
+          </div>
+
+          <div className="footer-links">
+            <h4>Follow</h4>
+            <a href="#top" className="social"><Camera size={17} /> @casalunapushkar</a>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <span>© 2026 Casa Luna Pizzeria, Pushkar</span>
+          <span>Made for slow moments.</span>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
 export function Kicker({children}){return <div className="section-kicker">{children}</div>}
 export function Button({to,children,light=false}){return <Link className={`button ${light?'button-light':'button-dark'}`} to={to}>{children} <span>↗</span></Link>}
